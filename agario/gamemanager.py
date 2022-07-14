@@ -16,6 +16,7 @@ class GameManager:
         self.screen_width = settings.screen_width
         self.screen_height = settings.screen_height
 
+        self.clock = pg.time.Clock()
         self.quit = False
 
     def initialize_window(self):
@@ -38,8 +39,12 @@ class GameManager:
                 if event.type == pg.KEYDOWN and event.key == pg.K_q:
                     self.quit = True
 
+            self.player.update()
+
             self.screen.fill(settings.background_color)
-            self.screen.blit(self.player.image, self.player.rect)
+            self.player.draw(self.screen)
             pg.display.flip()
+
+            self.clock.tick(30)
 
         pg.display.quit()

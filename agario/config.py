@@ -12,7 +12,12 @@ class Settings(BaseSettings):
     icon_path: str = Field(None, env="ICON_PATH")
 
     # map settings
+    width: int = Field(None, env="WIDTH")
+    height: int = Field(None, env="HEIGHT")
+    grid_length: int = Field(None, env="GRID_LENGTH")
+    grid_line_width: int = Field(None, env="GRID_LINE_WIDTH")
     background_color: Tuple[int, int, int] = Field(None, env="BACKGROUND_COLOR")
+    grid_color: Tuple[int, int, int] = Field(None, env="GRID_COLOR")
 
     # player settings
     initial_radius: float = Field(None, env="INITIAL_RADIUS")
