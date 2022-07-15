@@ -1,4 +1,5 @@
 import random
+from typing import List
 
 import pygame as pg
 
@@ -14,7 +15,7 @@ class FoodManager(pg.sprite.Group):
         self.generate_food()
 
         # list of the sprite to show
-        self.to_show: Food = []
+        self.to_show: List[Food] = []
 
     def generate_food(self):
         for _ in range(settings.food_amount):
