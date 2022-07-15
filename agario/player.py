@@ -7,7 +7,9 @@ from agario.config import settings
 
 class Player(pg.sprite.Sprite):
     def __init__(self):
-        self.radius = settings.initial_radius
+        super().__init__()
+
+        self.radius = settings.player_initial_radius
         self.minimum_x = settings.screen_width // 2
         self.minimum_y = settings.screen_height // 2
 
@@ -24,12 +26,10 @@ class Player(pg.sprite.Sprite):
 
         # This limits are here because the player will be always on the center
         # of the screen
-        left = random.randint(0, 10000 - settings.screen_width)
-        top = random.randint(0, 10000 - settings.screen_height)
+        left = random.randint(0, settings.width - settings.screen_width)
+        top = random.randint(0, settings.height - settings.screen_height)
 
         self.camera = pg.Rect(left, top, settings.screen_width, settings.screen_height)
-
-        self.scale_factor = 1
 
     # TODO: This should be improved such that the movement looks more elastic
     def update(self):

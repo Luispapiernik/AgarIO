@@ -20,8 +20,12 @@ class Settings(BaseSettings):
     grid_color: Tuple[int, int, int] = Field(None, env="GRID_COLOR")
 
     # player settings
-    initial_radius: float = Field(None, env="INITIAL_RADIUS")
+    player_initial_radius: float = Field(None, env="PLAYER_INITIAL_RADIUS")
     player_color: Tuple[int, int, int] = Field(None, env="PLAYER_COLOR")
+
+    # food settings
+    food_initial_radius: float = Field(None, env="FOOD_INITIAL_RADIUS")
+    food_amount: int = Field(None, env="FOOD_AMOUNT")
 
     class Config:
         env_file = (
