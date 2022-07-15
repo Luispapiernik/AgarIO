@@ -26,8 +26,12 @@ class Player(pg.sprite.Sprite):
 
         # This limits are here because the player will be always on the center
         # of the screen
-        left = random.randint(0, settings.width - settings.screen_width)
-        top = random.randint(0, settings.height - settings.screen_height)
+        left = random.randint(
+            settings.screen_width // 2, settings.width - settings.screen_width
+        )
+        top = random.randint(
+            settings.screen_height // 2, settings.height - settings.screen_height
+        )
 
         self.camera = pg.Rect(left, top, settings.screen_width, settings.screen_height)
 
@@ -39,7 +43,7 @@ class Player(pg.sprite.Sprite):
         dx = mouse_x - x
         dy = mouse_y - y
 
-        elasticity = 0.1
+        elasticity = 0.05
 
         new_x = self.camera.x + elasticity * dx
         if self.minimum_x < new_x < settings.width - self.minimum_x:

@@ -7,6 +7,39 @@ from agario.config import settings
 from agario.constants import COLORS
 from agario.food import Food
 
+NOT_ALLOWED_COLORS = [
+    "white",
+    "black",
+    "aliceblue",
+    "antiquewhite",
+    "azure",
+    "beige",
+    "bisque",
+    "blanchedalmond",
+    "cornsilk",
+    "darkgray",
+    "floralwhite",
+    "ghostwhite",
+    "honeydew",
+    "ivory",
+    "lavenderblush",
+    "lemonchiffon",
+    "lightgoldenrodyellow",
+    "lightyellow",
+    "linen",
+    "mintcream",
+    "oldlace",
+    "papayawhip",
+    "seashell",
+    "snow",
+    "white",
+    "whitesmoke",
+]
+
+FOOD_COLORS = [
+    color for name, color in COLORS.items() if name.lower() not in NOT_ALLOWED_COLORS
+]
+
 
 class FoodManager(pg.sprite.Group):
     def __init__(self) -> None:
@@ -19,14 +52,10 @@ class FoodManager(pg.sprite.Group):
 
     def generate_food(self):
         for _ in range(settings.food_amount):
-            left = random.randint(
-                settings.screen_width, settings.width - settings.screen_width
-            )
-            top = random.randint(
-                settings.screen_height, settings.height - settings.screen_height
-            )
+            left = random.randint(settings.screen_width, settings.width)
+            top = random.randint(settings.screen_height, settings.height)
 
-            self.add(Food(x=left, y=top, color=random.choice(list(COLORS.values()))))
+            self.add(Food(x=left, y=top, color=random.choice(FOOD_COLORS)))
 
     def update(self, player) -> None:
         for food in self.to_show:
