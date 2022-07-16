@@ -1,9 +1,11 @@
 import pygame as pg
 
+import agario.scenes as sc
 from agario.config import settings
-from agario.gamescene import GameScene
+from agario.schemas import SCENES
 
 pg.display.init()
+pg.font.init()
 
 
 class GameManager:
@@ -29,7 +31,9 @@ class GameManager:
         pg.display.set_icon(icon)
 
     def initialize_scenes(self):
-        self.game_scene = GameScene()
+        self.scenes = {SCENES.TITLE: sc.TitleScene(), SCENES.GAME: sc.GameScene()}
+
+        self.current_scene = SCENES.TITLE
 
     def run(self):
         while not self.quit:
@@ -40,13 +44,13 @@ class GameManager:
                 if event.type == pg.KEYDOWN and event.key == pg.K_q:
                     self.quit = True
 
-            self.game_scene.update(events)
+            self.current_scene = self.scenes[self.current_scene].update(events)
 
-            self.screen.fill(settings.background_color)
-            self.game_scene.draw(self.screen)
+            rects = self.scenes[self.current_scene].draw(self.screen)
 
-            pg.display.flip()
+            pg.display.update(rects)
 
             self.clock.tick(30)
 
         pg.display.quit()
+        pg.font.quit()

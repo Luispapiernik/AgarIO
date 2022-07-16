@@ -1,8 +1,10 @@
 import pygame as pg
 
+from agario.config import settings
 from agario.foodmanager import FoodManager
 from agario.player import Player
-from agario.scene import Scene
+from agario.scenes.scene import Scene
+from agario.schemas import SCENES
 
 
 class GameScene(Scene):
@@ -29,6 +31,12 @@ class GameScene(Scene):
             self.player.update()
             self.food_manager.update(self.player)
 
+        return SCENES.GAME
+
     def draw(self, screen):
+        screen.fill(settings.background_color)
         self.player.draw(screen)
         self.food_manager.draw(screen)
+
+        # The entire screen must be updated
+        return screen.get_rect()
